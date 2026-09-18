@@ -21,7 +21,7 @@ const editor=new Editor({svg,schematic,renderer,
  onStatus:(point,message)=>{if(point)$('#statusPosition').textContent=`x ${Math.round(point.x)} · y ${Math.round(point.y)}`;if(message)$('#statusMessage').textContent=message}
 });
 const palette=new ComponentPalette($('#palette'),tool=>{editor.tool=tool==='select'?null:tool;$('#canvasEmpty').classList.toggle('hidden',tool!=='select');if(tool!=='wire'){editor.pendingWire=null;editor.preview=null}editor.render()});
-const properties=new PropertyPanel($('#properties'),(property,value)=>{const item=schematic.getComponent(editor.selection)||schematic.getWire(editor.selection);if(!item)return;editor.snapshot();if(property==='x'||property==='y')item.position[property]=value;else item[property]=value;markDirty();refresh()},()=>editor.remove());
+const properties=new PropertyPanel($('#properties'),(property,value)=>{const item=schematic.getComponent(editor.selection)||schematic.getWire(editor.selection);if(!item)return;editor.snapshot();if(property==='x'||property==='y')item.position[property]=value;else item[property]=value;if(item.type&&['x','y','rotation'].includes(property))editor.syncConnectedWires(item);markDirty();refresh()},()=>editor.remove());
 
 function projectCaption(){return [schematic.brand,schematic.year].filter(Boolean).length?`${schematic.name} · ${[schematic.brand,schematic.year].filter(Boolean).join(' ')}`:schematic.name}
 function markDirty(value=true){dirty=value;document.title=`${value?'• ':''}${schematic.name} — IPCS`;$('#projectTitle').textContent=`${projectCaption()}${value?' — non sauvegardé':''}`}
