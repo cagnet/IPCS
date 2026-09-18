@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPCS — Interactive Pinball Circuit Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand"><img src="IPCS.png" alt=""><span><b>IPCS</b><small>Interactive Pinball Circuit Simulator</small></span></div>
+    <div class="toolbar-group">
+      <button id="newBtn" title="Nouveau (Ctrl+N)">Nouveau</button>
+      <button id="openBtn">Ouvrir</button><input id="fileInput" type="file" accept=".ipcs,.json" hidden>
+      <button id="saveBtn" title="Sauver (Ctrl+S)">Sauver</button>
+    </div>
+    <div class="mode-switch" role="group"><button id="editMode" class="active">Édition</button><button id="simMode">Simulation</button></div>
+    <div class="toolbar-group">
+      <button id="undoBtn" title="Ctrl+Z">↶</button><button id="redoBtn" title="Ctrl+Y">↷</button>
+      <button id="zoomOut">−</button><button id="zoomReset">100%</button><button id="zoomIn">+</button>
+    </div>
+  </header>
+  <main class="workspace">
+    <aside class="panel palette-panel">
+      <h2>Bibliothèque</h2>
+      <p class="hint">Choisissez un élément puis cliquez sur le plan.</p>
+      <div id="palette" class="palette"></div>
+      <h3>Style de fil</h3><div id="wireStyles" class="wire-styles"></div>
+      <button id="addStyleBtn" class="wide secondary">+ Style de fil</button>
+      <div class="shortcuts"><h3>Raccourcis</h3><p><kbd>R</kbd> rotation · <kbd>Suppr</kbd> supprimer<br><kbd>Ctrl D</kbd> dupliquer · molette zoom<br><kbd>Espace</kbd> + glisser panoramique<br>Fil : clic sur 2 bornes, <kbd>Maj</kbd> libre</p></div>
+    </aside>
+    <section class="canvas-wrap" id="canvasWrap">
+      <svg id="schematic" xmlns="http://www.w3.org/2000/svg" tabindex="0" aria-label="Éditeur de schéma électrique">
+        <defs id="svgDefs"></defs><g id="viewport"><g id="gridLayer"></g><g id="wireLayer"></g><g id="componentLayer"></g><g id="overlayLayer"></g></g>
+      </svg>
+      <div id="canvasEmpty" class="canvas-tip">Sélectionnez un composant dans la palette</div>
+    </section>
+    <aside class="panel properties-panel"><h2>Propriétés</h2><div id="properties"><p class="empty-state">Sélectionnez un élément du schéma.</p></div></aside>
+  </main>
+  <footer class="statusbar"><span id="statusPosition">x 0 · y 0</span><span id="statusSelection">Aucune sélection</span><span id="statusMode">ÉDITION</span><span id="statusMessage">Prêt</span></footer>
+  <div id="toast" role="status"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+import {Schematic} from '../model/Schematic.js';
+export class SchematicSerializer{static stringify(s){return JSON.stringify(s.toJSON(),null,2)}static parse(text){const d=JSON.parse(text);if(d.formatVersion!==1)throw new Error(`Version IPCS non supportée : ${d.formatVersion}`);return new Schematic(d)}static download(s){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([this.stringify(s)],{type:'application/json'}));a.download=`${s.name.replace(/[^a-z0-9]+/gi,'-').toLowerCase()||'schema'}.ipcs`;a.click();URL.revokeObjectURL(a.href)}}
