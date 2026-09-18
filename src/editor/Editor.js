@@ -16,7 +16,7 @@ export class Editor{
  setMode(m){this.mode=m;this.pendingWire=null;this.preview=null;this.render()}
  wheel(e){e.preventDefault();const before=this.point(e),factor=e.deltaY<0?1.12:.89;this.scale=Math.min(3,Math.max(.25,this.scale*factor));const r=this.svg.getBoundingClientRect();this.pan.x=e.clientX-r.left-before.x*this.scale;this.pan.y=e.clientY-r.top-before.y*this.scale;this.applyTransform();this.onStatus(null,`${Math.round(this.scale*100)} %`)}
  zoom(f){if(f===0){this.scale=1;this.pan={x:0,y:0}}else this.scale=Math.min(3,Math.max(.25,this.scale*f));this.applyTransform()}
- applyTransform(){this.svg.querySelector('#viewport').setAttribute('transform',`translate(${this.pan.x} ${this.pan.y}) scale(${this.scale})`)}
+ applyTransform(){this.svg.querySelector('#viewport').setAttribute('transform',`translate(${this.pan.x} ${this.pan.y}) scale(${this.scale})`);this.onViewportChange?.({pan:{...this.pan},scale:this.scale})}
  key(e,down){if(e.code==='Space'){this.space=down;if(down)e.preventDefault()}if(!down||['INPUT','SELECT'].includes(document.activeElement?.tagName))return;if(e.key==='Delete'&&this.selection)this.remove();if(e.key.toLowerCase()==='r'&&this.selection)this.rotate();if(e.ctrlKey&&e.key.toLowerCase()==='z'){e.preventDefault();this.undo()}if(e.ctrlKey&&(e.key.toLowerCase()==='y'||e.shiftKey&&e.key.toLowerCase()==='z')){e.preventDefault();this.redo()}if(e.ctrlKey&&e.key.toLowerCase()==='d'){e.preventDefault();this.duplicate()}}
  snapshot(){this.history.push(JSON.stringify(this.schematic.toJSON()));if(this.history.length>60)this.history.shift();this.future=[]}
  restore(raw){import('../model/Schematic.js').then(({Schematic})=>{this.schematic=new Schematic(JSON.parse(raw));this.selection=null;this.onChange('restore',this.schematic)})}

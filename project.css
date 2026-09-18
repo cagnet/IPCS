@@ -1,10 +1,10 @@
-.pdf-background{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;background:white}
+.pdf-viewport{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;pointer-events:none}.pdf-background{position:absolute;border:0;pointer-events:none;background:white;transform-origin:0 0}
 .canvas-wrap.has-background #schematic{position:relative;background:transparent}
 .canvas-wrap.has-background .snap-grid{opacity:.28}
 .canvas-wrap.has-background .reference-grid{opacity:.5}
 .project-dialog{width:min(520px,calc(100vw - 28px));border:0;border-radius:10px;padding:0;box-shadow:0 25px 80px #00101f66;color:var(--ink)}
 .project-dialog::backdrop{background:#061827aa;backdrop-filter:blur(3px)}
-.project-dialog form{padding:24px}
+.project-dialog form{padding:24px;max-height:min(840px,calc(100vh - 40px));overflow:auto}
 .dialog-heading{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:700;margin-bottom:8px}
 .dialog-heading button{font-size:24px;border:0;background:transparent;cursor:pointer;color:var(--muted)}
 .project-dialog p{color:var(--muted);margin:0 0 22px}
@@ -13,3 +13,4 @@
 .check-row{display:flex;align-items:center;gap:8px;margin:12px 0 22px}
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px}.dialog-actions button{border:0;border-radius:5px;padding:9px 16px;cursor:pointer}.primary{background:var(--blue);color:#fff}.dialog-actions .secondary{margin:0}
 .toolbar .brand small{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.settings-box{padding:12px;background:#edf2f4;border-radius:7px;margin:10px 0 18px}.settings-box[hidden]{display:none}.settings-box .danger{margin-top:2px}.project-dialog h3{margin-top:14px}
