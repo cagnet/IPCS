@@ -4,6 +4,14 @@ MVP d’un éditeur et simulateur de schémas électromécaniques, en HTML/CSS/J
 
 ## Lancer
 
+Sous Windows, double-cliquez simplement sur `Lancer-IPCS.bat`. Le lanceur démarre le serveur local, ouvre l’application dans le navigateur et conserve une fenêtre permettant d’arrêter le serveur proprement.
+
+Il est aussi possible de lancer directement `Lancer-IPCS.ps1`. Le port peut être personnalisé avec :
+
+```powershell
+.\Lancer-IPCS.ps1 -Port 8080
+```
+
 Le projet est entièrement statique. Servez le dossier avec n’importe quel serveur HTTP local :
 
 ```powershell
