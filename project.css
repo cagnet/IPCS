@@ -18,3 +18,4 @@
 .wire-hit{stroke:rgba(0,0,0,.001);stroke-width:18;pointer-events:stroke;cursor:pointer}.wire.selected .wire-base{filter:drop-shadow(0 0 3px #168bc1)}
 .wire-point-handle{fill:#fff;stroke:#168bc1;stroke-width:2;vector-effect:non-scaling-stroke;cursor:move}.wire-point-handle:hover,.wire-point-handle.active{fill:#168bc1;stroke:#fff}
 .project-summary{display:flex;flex-direction:column;gap:3px;padding:10px 11px;background:#e6eef2;border-left:3px solid var(--blue);border-radius:4px}.project-summary span{font-size:11px;color:var(--muted)}
+.file-button{display:block;text-align:center;cursor:pointer}.pdf-name{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
