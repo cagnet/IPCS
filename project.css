@@ -16,3 +16,4 @@
 .settings-box{padding:12px;background:#edf2f4;border-radius:7px;margin:10px 0 18px}.settings-box[hidden]{display:none}.settings-box .danger{margin-top:2px}.project-dialog h3{margin-top:14px}
 .marquee-selection{fill:#168bc126;stroke:#168bc1;stroke-width:1.5;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
 .wire-hit{stroke:rgba(0,0,0,.001);stroke-width:18;pointer-events:stroke;cursor:pointer}.wire.selected .wire-base{filter:drop-shadow(0 0 3px #168bc1)}
+.wire-point-handle{fill:#fff;stroke:#168bc1;stroke-width:2;vector-effect:non-scaling-stroke;cursor:move}.wire-point-handle:hover,.wire-point-handle.active{fill:#168bc1;stroke:#fff}
