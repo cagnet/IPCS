@@ -17,7 +17,7 @@ const editor=new Editor({svg,schematic,renderer,
  onViewportChange:syncPdfViewport,
  onCancel:()=>palette.select('select'),
  onChange:(reason,replacement)=>{if(replacement){schematic=replacement;editor.schematic=schematic}markDirty();editor.mode==='SIMULATION'?runSimulation():refresh()},
- onSelect:id=>{const item=schematic.getComponent(id)||schematic.getWire(id);properties.render(item,schematic);$('#statusSelection').textContent=item?`${item.id}${item.type?' · '+item.type:''}`:'Aucune sélection'},
+ onSelect:(id,ids=[])=>{const item=ids.length===1?(schematic.getComponent(id)||schematic.getWire(id)):null;properties.render(item,schematic);$('#statusSelection').textContent=ids.length>1?`${ids.length} éléments sélectionnés`:item?`${item.id}${item.type?' · '+item.type:''}`:'Aucune sélection'},
  onStatus:(point,message)=>{if(point)$('#statusPosition').textContent=`x ${Math.round(point.x)} · y ${Math.round(point.y)}`;if(message)$('#statusMessage').textContent=message}
 });
 const palette=new ComponentPalette($('#palette'),tool=>{editor.tool=tool==='select'?null:tool;$('#canvasEmpty').classList.toggle('hidden',tool!=='select');if(tool!=='wire'){editor.pendingWire=null;editor.preview=null}editor.render()});

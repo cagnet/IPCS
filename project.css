@@ -14,3 +14,4 @@
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px}.dialog-actions button{border:0;border-radius:5px;padding:9px 16px;cursor:pointer}.primary{background:var(--blue);color:#fff}.dialog-actions .secondary{margin:0}
 .toolbar .brand small{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .settings-box{padding:12px;background:#edf2f4;border-radius:7px;margin:10px 0 18px}.settings-box[hidden]{display:none}.settings-box .danger{margin-top:2px}.project-dialog h3{margin-top:14px}
+.marquee-selection{fill:#168bc126;stroke:#168bc1;stroke-width:1.5;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
