@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IPCS — Interactive Pinball Circuit Simulator</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
 </head>
 <body>
   <header class="toolbar">
-    <div class="brand"><img src="IPCS.png" alt=""><span><b>IPCS</b><small>Interactive Pinball Circuit Simulator</small></span></div>
+    <div class="brand"><img src="IPCS.png" alt=""><span><b>IPCS</b><small id="projectTitle">Interactive Pinball Circuit Simulator</small></span></div>
     <div class="toolbar-group">
       <button id="newBtn" title="Nouveau (Ctrl+N)">Nouveau</button>
       <button id="openBtn">Ouvrir</button><input id="fileInput" type="file" accept=".ipcs,.json" hidden>
@@ -30,6 +31,7 @@
       <div class="shortcuts"><h3>Raccourcis</h3><p><kbd>R</kbd> rotation · <kbd>Suppr</kbd> supprimer<br><kbd>Ctrl D</kbd> dupliquer · molette zoom<br><kbd>Espace</kbd> + glisser panoramique<br>Fil : clic sur 2 bornes, <kbd>Maj</kbd> libre</p></div>
     </aside>
     <section class="canvas-wrap" id="canvasWrap">
+      <embed id="pdfBackground" class="pdf-background" type="application/pdf" hidden>
       <svg id="schematic" xmlns="http://www.w3.org/2000/svg" tabindex="0" aria-label="Éditeur de schéma électrique">
         <defs id="svgDefs"></defs><g id="viewport"><g id="gridLayer"></g><g id="wireLayer"></g><g id="componentLayer"></g><g id="overlayLayer"></g></g>
       </svg>
@@ -39,6 +41,16 @@
   </main>
   <footer class="statusbar"><span id="statusPosition">x 0 · y 0</span><span id="statusSelection">Aucune sélection</span><span id="statusMode">ÉDITION</span><span id="statusMessage">Prêt</span></footer>
   <div id="toast" role="status"></div>
+  <dialog id="newProjectDialog" class="project-dialog">
+    <form id="newProjectForm" method="dialog">
+      <div class="dialog-heading"><span>Nouveau projet</span><button type="button" id="closeNewDialog" aria-label="Fermer">×</button></div>
+      <p>Créez un espace de travail vide. Un plan PDF peut être placé en arrière-plan pour servir de guide.</p>
+      <div class="prop-group"><label for="projectName">Nom du projet</label><input id="projectName" required maxlength="120" autocomplete="off" placeholder="Mon flipper 1971"></div>
+      <div class="prop-group"><label>Plan PDF de référence — optionnel</label><label class="file-drop" for="backgroundPdfInput"><b>Choisir un fichier PDF</b><span id="pdfFileName">Aucun fichier sélectionné</span></label><input id="backgroundPdfInput" type="file" accept="application/pdf,.pdf" hidden></div>
+      <label class="check-row"><input id="showBackground" type="checkbox" checked> Afficher le PDF en arrière-plan</label>
+      <div class="dialog-actions"><button type="button" id="cancelNewProject" class="secondary">Annuler</button><button type="submit" class="primary">Créer le projet</button></div>
+    </form>
+  </dialog>
   <script type="module" src="src/app.js"></script>
 </body>
 </html>

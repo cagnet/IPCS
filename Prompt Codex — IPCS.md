@@ -50,7 +50,7 @@ Organisation souhaitée :
 
 ```text
 ┌───────────────────────────────────────────────────────────────┐
-│ Nouveau | Ouvrir | Sauver | Edition | Simulation | Zoom      │
+│ Nouveau | Ouvrir | Sauver | Edition | Simulation | Zoom       │
 ├──────────────┬───────────────────────────────┬────────────────┤
 │              │                               │                │
 │ Bibliothèque │                               │ Propriétés     │
@@ -63,7 +63,7 @@ Organisation souhaitée :
 │ Contact NC   │                               │                │
 │              │                               │                │
 ├──────────────┴───────────────────────────────┴────────────────┤
-│ Barre d'état : position, composant sélectionné, simulation   │
+│ Barre d'état : position, composant sélectionné, simulation    │
 └───────────────────────────────────────────────────────────────┘
 ```
 
