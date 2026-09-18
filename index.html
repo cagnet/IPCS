@@ -49,15 +49,6 @@
       <div class="prop-group"><label for="projectName">Nom du projet</label><input id="projectName" required maxlength="120" autocomplete="off" placeholder="Mon flipper 1971"></div>
       <div class="prop-row"><div class="prop-group"><label for="projectBrand">Marque</label><input id="projectBrand" maxlength="80" placeholder="Williams"></div><div class="prop-group"><label for="projectYear">Année</label><input id="projectYear" type="number" min="1900" max="2100" placeholder="1971"></div></div>
       <div class="prop-group"><label>Plan PDF de référence — optionnel</label><label class="file-drop" for="backgroundPdfInput"><b>Choisir un fichier PDF</b><span id="pdfFileName">Aucun fichier sélectionné</span></label><input id="backgroundPdfInput" type="file" accept="application/pdf,.pdf" hidden></div>
-      <label class="check-row"><input id="showBackground" type="checkbox" checked> Afficher le PDF en arrière-plan</label>
-      <div id="backgroundSettings" class="settings-box">
-        <div class="prop-group"><label for="backgroundOpacity">Opacité du PDF : <output id="backgroundOpacityValue">50 %</output></label><input id="backgroundOpacity" type="range" min="0" max="100" value="50"></div>
-        <div class="prop-row"><div class="prop-group"><label for="backgroundX">Position X</label><input id="backgroundX" type="number" value="0"></div><div class="prop-group"><label for="backgroundY">Position Y</label><input id="backgroundY" type="number" value="0"></div></div>
-        <div class="prop-row"><div class="prop-group"><label for="backgroundWidth">Largeur</label><input id="backgroundWidth" type="number" min="100" value="1200"></div><div class="prop-group"><label for="backgroundHeight">Hauteur</label><input id="backgroundHeight" type="number" min="100" value="900"></div></div>
-        <button type="button" id="removeBackgroundBtn" class="wide danger">Retirer le PDF</button>
-      </div>
-      <h3>Grille d’édition</h3><div class="prop-row"><div class="prop-group"><label for="snapStepX">Pas horizontal</label><input id="snapStepX" type="number" min="1" value="10"></div><div class="prop-group"><label for="snapStepY">Pas vertical</label><input id="snapStepY" type="number" min="1" value="10"></div></div>
-      <h3>Grille de repérage</h3><div class="prop-row"><div class="prop-group"><label for="referenceCellWidth">Largeur cellule</label><input id="referenceCellWidth" type="number" min="20" value="200"></div><div class="prop-group"><label for="referenceCellHeight">Hauteur cellule</label><input id="referenceCellHeight" type="number" min="20" value="150"></div></div>
       <div class="dialog-actions"><button type="button" id="cancelNewProject" class="secondary">Annuler</button><button type="submit" id="projectSubmitBtn" class="primary">Créer le projet</button></div>
     </form>
   </dialog>

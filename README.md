@@ -10,8 +10,9 @@ Les tests de développement du moteur peuvent être lancés avec `npm test`, mai
 
 ## Utilisation
 
-- **Nouveau** demande le nom du projet et permet de choisir un PDF optionnel comme fond de dessin.
-- **Projet** permet ensuite de modifier le nom, la marque, l’année, les pas des deux grilles et les réglages du PDF.
+- **Nouveau** demande uniquement le nom, la marque, l’année et permet de choisir un PDF optionnel.
+- Lorsque rien n’est sélectionné, le panneau droit **Propriétés** permet de régler les pas des deux grilles ainsi que la position, les dimensions, la visibilité et l’opacité du PDF.
+- **Projet** permet ensuite de modifier les informations générales ou de remplacer le PDF.
 - Le PDF est un calque du schéma : il suit le zoom et le panoramique. Sa position, ses dimensions, sa visibilité et son opacité de 0 à 100 % sont configurables.
 - **Sauver** écrit un fichier local `.ipcs` avec tout l’avancement et le PDF embarqué. Sur les navigateurs ne proposant pas l’accès direct aux fichiers, il est téléchargé dans le dossier Téléchargements.
 - **Ouvrir** recharge un fichier `.ipcs` et restaure le schéma, les styles, les relations et le fond PDF.
