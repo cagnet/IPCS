@@ -15,11 +15,12 @@ const toast=message=>{const node=$('#toast');node.textContent=message;node.class
 
 const editor=new Editor({svg,schematic,renderer,
  onViewportChange:syncPdfViewport,
+ onCancel:()=>palette.select('select'),
  onChange:(reason,replacement)=>{if(replacement){schematic=replacement;editor.schematic=schematic}markDirty();editor.mode==='SIMULATION'?runSimulation():refresh()},
  onSelect:id=>{const item=schematic.getComponent(id)||schematic.getWire(id);properties.render(item,schematic);$('#statusSelection').textContent=item?`${item.id}${item.type?' · '+item.type:''}`:'Aucune sélection'},
  onStatus:(point,message)=>{if(point)$('#statusPosition').textContent=`x ${Math.round(point.x)} · y ${Math.round(point.y)}`;if(message)$('#statusMessage').textContent=message}
 });
-const palette=new ComponentPalette($('#palette'),tool=>{editor.tool=tool;$('#canvasEmpty').classList.toggle('hidden',!!tool);if(tool!=='wire'){editor.pendingWire=null;editor.preview=null}editor.render()});
+const palette=new ComponentPalette($('#palette'),tool=>{editor.tool=tool==='select'?null:tool;$('#canvasEmpty').classList.toggle('hidden',tool!=='select');if(tool!=='wire'){editor.pendingWire=null;editor.preview=null}editor.render()});
 const properties=new PropertyPanel($('#properties'),(property,value)=>{const item=schematic.getComponent(editor.selection)||schematic.getWire(editor.selection);if(!item)return;editor.snapshot();if(property==='x'||property==='y')item.position[property]=value;else item[property]=value;markDirty();refresh()},()=>editor.remove());
 
 function projectCaption(){return [schematic.brand,schematic.year].filter(Boolean).length?`${schematic.name} · ${[schematic.brand,schematic.year].filter(Boolean).join(' ')}`:schematic.name}
