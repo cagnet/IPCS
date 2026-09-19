@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Editor} from '../src/editor/Editor.js';
 import {Schematic} from '../src/model/Schematic.js';
+import {SvgRenderer} from '../src/rendering/SvgRenderer.js';
 
 function editorStub(){const editor=Object.create(Editor.prototype);editor.schematic=new Schematic();editor.styleId='RED';editor.wireDescription='';editor.selections=new Set();editor.selectedWirePoint=null;editor.render=()=>{};editor.onStatus=()=>{};editor.snapshot=()=>{};editor.onSelect=()=>{};editor.onChange=()=>{};return editor}
 const isOrthogonal=wire=>wire.points.slice(1).every((point,index)=>point.x===wire.points[index].x||point.y===wire.points[index].y);
@@ -25,5 +26,7 @@ test('supprimer un sommet diagonal recrée le coude nécessaire',()=>{const edit
 test('les cinq bornes du transformateur sont sur la grille et suivent sa rotation',()=>{const editor=editorStub();editor.schematic.addComponent({id:'T1',type:'transformer',position:{x:100,y:100},rotation:0});assert.deepEqual(editor.terminalPosition('T1:P1'),{x:50,y:-25});assert.deepEqual(editor.terminalPosition('T1:S2'),{x:150,y:100});editor.schematic.getComponent('T1').rotation=90;assert.deepEqual(editor.terminalPosition('T1:P1'),{x:225,y:50});assert.deepEqual(editor.terminalPosition('T1:S2'),{x:100,y:150})});
 
 test('un inverseur miroir échange physiquement les bornes ON et OFF',()=>{const editor=editorStub();const contact=editor.schematic.addComponent({id:'SW1',type:'contact',contactType:'CHANGEOVER',position:{x:100,y:100},rotation:0});assert.deepEqual(editor.terminalPosition('SW1:NC'),{x:150,y:86});assert.deepEqual(editor.terminalPosition('SW1:NO'),{x:150,y:114});contact.mirrored=true;assert.deepEqual(editor.terminalPosition('SW1:NC'),{x:150,y:114});assert.deepEqual(editor.terminalPosition('SW1:NO'),{x:150,y:86})});
+
+test('le miroir retourne toute la représentation graphique de l’inverseur',()=>{const original=globalThis.document;globalThis.document={createElementNS:(_ns,tag)=>({tag,attributes:{},children:[],setAttribute(name,value){this.attributes[name]=String(value)},append(...nodes){this.children.push(...nodes)}})};try{const renderer=Object.create(SvgRenderer.prototype),contact={id:'SW1',type:'contact',contactType:'CHANGEOVER',controlType:'manual',manualActivated:false,mirrored:true};const nodes=renderer.symbol(contact,{simulation:null},null);assert.equal(nodes.length,1);assert.equal(nodes[0].tag,'g');assert.equal(nodes[0].attributes.transform,'scale(1 -1)');assert.equal(nodes[0].children.length,11)}finally{globalThis.document=original}});
 
 test('les nouveaux composants sont orientés de bas vers le haut',()=>{const editor=editorStub();editor.add('lamp',{x:100,y:100});assert.equal(editor.schematic.getComponent('L1').rotation,270);assert.deepEqual(editor.terminalPosition('L1:A'),{x:100,y:150});assert.deepEqual(editor.terminalPosition('L1:B'),{x:100,y:50})});
