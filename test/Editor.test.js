@@ -3,10 +3,12 @@ import assert from 'node:assert/strict';
 import {Editor} from '../src/editor/Editor.js';
 import {Schematic} from '../src/model/Schematic.js';
 
-function editorStub(){const editor=Object.create(Editor.prototype);editor.schematic=new Schematic();editor.styleId='RED';editor.selections=new Set();editor.selectedWirePoint=null;editor.render=()=>{};editor.onStatus=()=>{};editor.snapshot=()=>{};editor.onSelect=()=>{};editor.onChange=()=>{};return editor}
+function editorStub(){const editor=Object.create(Editor.prototype);editor.schematic=new Schematic();editor.styleId='RED';editor.wireDescription='';editor.selections=new Set();editor.selectedWirePoint=null;editor.render=()=>{};editor.onStatus=()=>{};editor.snapshot=()=>{};editor.onSelect=()=>{};editor.onChange=()=>{};return editor}
 const isOrthogonal=wire=>wire.points.slice(1).every((point,index)=>point.x===wire.points[index].x||point.y===wire.points[index].y);
 
 test('chaque clic ajoute un point orthogonal et une borne termine le fil',()=>{const editor=editorStub();editor.wireClick('A:OUT',{x:0,y:0},false);editor.wireClick(null,{x:40,y:30},false);editor.wireClick(null,{x:60,y:80},false);editor.wireClick('B:A',{x:100,y:100},false);assert.deepEqual(editor.schematic.wires[0].points,[{x:0,y:0},{x:40,y:0},{x:40,y:80},{x:100,y:80},{x:100,y:100}]);assert.equal(editor.pendingWire,null)});
+
+test('la description saisie est enregistrée sur le nouveau fil',()=>{const editor=editorStub();editor.wireDescription='Alimentation bobine gauche';editor.wireClick('A:OUT',{x:0,y:0},false);editor.wireClick('B:A',{x:100,y:0},false);assert.equal(editor.schematic.wires[0].description,'Alimentation bobine gauche')});
 
 test('le clic libre avec Maj conserve les coordonnées exactes',()=>{const editor=editorStub();editor.wireClick('A:OUT',{x:0,y:0},false);editor.wireClick(null,{x:25,y:35},true);assert.deepEqual(editor.pendingWire.points,[{x:0,y:0},{x:25,y:35}])});
 

@@ -27,7 +27,7 @@
       <h2>Bibliothèque</h2>
       <p class="hint">Choisissez un élément puis cliquez sur le plan.</p>
       <div id="palette" class="palette"></div>
-      <h3>Style de fil</h3><div id="wireStyles" class="wire-styles"></div>
+      <h3>Fil à créer</h3><div class="prop-group wire-description-field"><label for="wireDescription">Description</label><input id="wireDescription" maxlength="160" placeholder="Ex. alimentation bobine gauche"></div><div id="wireStyles" class="wire-styles"></div>
       <button id="addStyleBtn" class="wide secondary">+ Style de fil</button>
       <div class="shortcuts"><h3>Raccourcis</h3><p><kbd>R</kbd> rotation · <kbd>Suppr</kbd> supprimer<br><kbd>Ctrl D</kbd> dupliquer · molette zoom<br><kbd>Clic droit</kbd> + glisser : déplacer le plan<br><kbd>Clic droit</kbd> bref : annuler l’action<br>Sélection : glisser dans le vide pour encadrer<br>Fil sélectionné : glisser une poignée, <kbd>Suppr</kbd> retire le sommet<br>Fil : chaque clic valide un point, clic sur une borne pour terminer, <kbd>Maj</kbd> libre</p></div>
     </aside>
@@ -64,6 +64,16 @@
       </div>
       <p id="pdfCalibrationStatus" class="calibration-status">Cliquez sur le point A1 du PDF.</p>
       <div class="dialog-actions"><button type="button" id="cancelPdfCalibration" class="secondary">Annuler</button><button type="submit" id="confirmPdfCalibration" class="primary" disabled>Importer le PDF</button></div>
+    </form>
+  </dialog>
+  <dialog id="wireStyleDialog" class="project-dialog wire-style-dialog">
+    <form id="wireStyleForm" method="dialog">
+      <div class="dialog-heading"><span>Nouveau style de fil</span><button type="button" id="closeWireStyleDialog" aria-label="Fermer">×</button></div>
+      <p>Choisissez une à trois couleurs. Cliquez de nouveau sur une couleur pour la retirer.</p>
+      <div class="prop-group"><label for="wireStyleName">Nom du style</label><input id="wireStyleName" maxlength="60" placeholder="Ex. Rouge / Blanc"></div>
+      <div id="wireColorSelection" class="wire-color-selection"></div>
+      <div id="wireColorPalette" class="wire-color-palette" aria-label="Palette de couleurs"></div>
+      <div class="dialog-actions"><button type="button" id="cancelWireStyle" class="secondary">Annuler</button><button type="submit" id="confirmWireStyle" class="primary" disabled>Créer le style</button></div>
     </form>
   </dialog>
   <script src="vendor/pdfjs/pdf.min.js"></script>
