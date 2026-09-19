@@ -32,9 +32,8 @@
       <div class="shortcuts"><h3>Raccourcis</h3><p><kbd>R</kbd> rotation · <kbd>Suppr</kbd> supprimer<br><kbd>Ctrl D</kbd> dupliquer · molette zoom<br><kbd>Clic droit</kbd> + glisser : déplacer le plan<br><kbd>Clic droit</kbd> bref : annuler l’action<br>Sélection : glisser dans le vide pour encadrer<br>Fil sélectionné : glisser une poignée, <kbd>Suppr</kbd> retire le sommet<br>Fil : chaque clic valide un point, clic sur une borne pour terminer, <kbd>Maj</kbd> libre</p></div>
     </aside>
     <section class="canvas-wrap" id="canvasWrap">
-      <div id="pdfViewport" class="pdf-viewport" hidden><canvas id="pdfBackground" class="pdf-background"></canvas></div>
       <svg id="schematic" xmlns="http://www.w3.org/2000/svg" tabindex="0" aria-label="Éditeur de schéma électrique">
-        <defs id="svgDefs"></defs><g id="viewport"><g id="gridLayer"></g><g id="wireLayer"></g><g id="componentLayer"></g><g id="overlayLayer"></g></g>
+        <defs id="svgDefs"></defs><g id="viewport"><image id="pdfBackground" class="pdf-background" hidden preserveAspectRatio="none"></image><g id="gridLayer"></g><g id="wireLayer"></g><g id="componentLayer"></g><g id="overlayLayer"></g></g>
       </svg>
       <div id="canvasEmpty" class="canvas-tip">Sélectionnez un composant dans la palette</div>
     </section>

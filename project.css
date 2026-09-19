@@ -1,4 +1,4 @@
-.pdf-viewport{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;pointer-events:none}.pdf-background{position:absolute;border:0;pointer-events:none;background:transparent;transform-origin:0 0;display:block}
+.pdf-background{pointer-events:none}
 .canvas-wrap.has-background #schematic{position:relative;background:transparent}
 .canvas-wrap.has-background .snap-grid{opacity:.28}
 .canvas-wrap.has-background .reference-grid{opacity:.5}
