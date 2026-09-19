@@ -10,6 +10,12 @@ test('la grille d’édition utilise un pas de 25 par défaut',()=>{
  assert.equal(schematic.grid.referenceGrid.calculatedCellHeight,schematic.grid.referenceGrid.cellHeight);
 });
 
+test('les dix couleurs principales sont disponibles dans tous les projets',()=>{
+ const schematic=new Schematic({wireStyles:[{id:'CUSTOM',name:'Personnel',colors:['#123456']}]});
+ assert.deepEqual(schematic.wireStyles.slice(0,10).map(style=>style.name),['Rouge','Bleu','Jaune','Vert','Blanc','Marron','Orange','Noir','Gris','Violet']);
+ assert.equal(schematic.wireStyles.at(-1).id,'CUSTOM');
+});
+
 test('F27 définit un canevas de 27 colonnes et 6 lignes',()=>{
  const grid={maxReference:'F27',cellWidth:10,cellHeight:20};
  assert.deepEqual(gridExtent(grid),{width:270,height:120,rows:6,columns:27,label:'F27'});
