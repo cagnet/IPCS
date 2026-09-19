@@ -52,6 +52,20 @@
       <div class="dialog-actions"><button type="button" id="cancelNewProject" class="secondary">Annuler</button><button type="submit" id="projectSubmitBtn" class="primary">Créer le projet</button></div>
     </form>
   </dialog>
+  <dialog id="pdfCalibrationDialog" class="project-dialog pdf-calibration-dialog">
+    <form id="pdfCalibrationForm" method="dialog">
+      <div class="dialog-heading"><span>Importer et calibrer le PDF</span><button type="button" id="closePdfCalibration" aria-label="Fermer">×</button></div>
+      <p>Indiquez le dernier repère, puis cliquez sur A1 en bas à gauche et sur ce repère en haut à droite.</p>
+      <div class="prop-group"><label for="pdfMaxReference">Repère maximal</label><input id="pdfMaxReference" value="F27" pattern="[A-Za-z]+-?[0-9]+" required></div>
+      <div id="pdfCalibrationStage" class="pdf-calibration-stage">
+        <canvas id="pdfCalibrationCanvas"></canvas>
+        <span id="pdfAnchorA1" class="pdf-anchor pdf-anchor-a1" hidden>A1</span>
+        <span id="pdfAnchorMax" class="pdf-anchor pdf-anchor-max" hidden>MAX</span>
+      </div>
+      <p id="pdfCalibrationStatus" class="calibration-status">Cliquez sur le point A1 du PDF.</p>
+      <div class="dialog-actions"><button type="button" id="cancelPdfCalibration" class="secondary">Annuler</button><button type="submit" id="confirmPdfCalibration" class="primary" disabled>Importer le PDF</button></div>
+    </form>
+  </dialog>
   <script src="vendor/pdfjs/pdf.min.js"></script>
   <script src="src/ipcs.bundle.js"></script>
 </body>
