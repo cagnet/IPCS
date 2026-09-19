@@ -1,5 +1,5 @@
 import {PowerSource,Coil,Contact,Junction} from '../model/components.js';
-import {Schematic} from '../model/Schematic.js';
+import {gridExtent,Schematic} from '../model/Schematic.js';
 
 export class Editor{
  constructor(options){Object.assign(this,options);this.mode='EDIT';this.tool=null;this.styleId='RED';this.selection=null;this.selections=new Set();this.selectedWirePoint=null;this.scale=1;this.pan={x:0,y:0};this.history=[];this.future=[];this.space=false;this.bind();this.resetView()}
@@ -29,7 +29,7 @@ export class Editor{
  render(simulation=this.simulation){this.simulation=simulation;this.renderer.render(this.schematic,{selection:this.selection,selections:this.selections,selectedWirePoint:this.selectedWirePoint,related:this.related(),simulation,wirePreview:this.preview,marquee:this.marquee})}
  setMode(m){this.mode=m;this.pendingWire=null;this.preview=null;this.marquee=null;this.render()}
  wheel(e){e.preventDefault();const before=this.point(e),factor=e.deltaY<0?1.12:.89;this.scale=Math.min(3,Math.max(.25,this.scale*factor));const r=this.svg.getBoundingClientRect();this.pan.x=e.clientX-r.left-before.x*this.scale;this.pan.y=e.clientY-r.top-before.y*this.scale;this.applyTransform();this.onStatus(null,`${Math.round(this.scale*100)} %`)}
- resetView(){this.scale=1;this.pan={x:0,y:Math.max(0,this.svg.clientHeight)-1800};this.applyTransform()}
+ resetView(){this.scale=1;this.pan={x:0,y:Math.max(0,this.svg.clientHeight)-gridExtent(this.schematic.grid.referenceGrid).height};this.applyTransform()}
  zoom(f){if(f===0)this.resetView();else{this.scale=Math.min(3,Math.max(.25,this.scale*f));this.applyTransform()}}
  applyTransform(){this.svg.querySelector('#viewport').setAttribute('transform',`translate(${this.pan.x} ${this.pan.y}) scale(${this.scale})`);this.onViewportChange?.({pan:{...this.pan},scale:this.scale})}
  key(e,down){if(e.code==='Space'){this.space=down;if(down)e.preventDefault()}if(!down||['INPUT','SELECT'].includes(document.activeElement?.tagName))return;if(e.key==='Delete'&&this.selectedWirePoint!==null){this.deleteSelectedWirePoint();return}if(e.key==='Delete'&&this.selections.size)this.remove();if(e.key.toLowerCase()==='r'&&this.selection)this.rotate();if(e.ctrlKey&&e.key.toLowerCase()==='z'){e.preventDefault();this.undo()}if(e.ctrlKey&&(e.key.toLowerCase()==='y'||e.shiftKey&&e.key.toLowerCase()==='z')){e.preventDefault();this.redo()}if(e.ctrlKey&&e.key.toLowerCase()==='d'){e.preventDefault();this.duplicate()}}

@@ -57,6 +57,7 @@
       <div class="dialog-heading"><span>Importer et calibrer le PDF</span><button type="button" id="closePdfCalibration" aria-label="Fermer">×</button></div>
       <p>Indiquez le dernier repère, puis cliquez sur A1 en bas à gauche et sur ce repère en haut à droite.</p>
       <div class="prop-group"><label for="pdfMaxReference">Repère maximal</label><input id="pdfMaxReference" value="F27" pattern="[A-Za-z]+-?[0-9]+" required></div>
+      <div class="pdf-calibration-tools"><span>Zoom du PDF</span><button type="button" id="pdfCalibrationZoomOut">−</button><button type="button" id="pdfCalibrationZoomReset">100 %</button><button type="button" id="pdfCalibrationZoomIn">+</button></div>
       <div id="pdfCalibrationStage" class="pdf-calibration-stage">
         <canvas id="pdfCalibrationCanvas"></canvas>
         <span id="pdfAnchorA1" class="pdf-anchor pdf-anchor-a1" hidden>A1</span>
