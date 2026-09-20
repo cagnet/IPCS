@@ -35,6 +35,8 @@ test('les nouveaux composants sont orientés de bas vers le haut',()=>{const edi
 
 test('le composant Contact unique est créé normalement ouvert et manuel',()=>{const editor=editorStub();editor.add('contact',{x:100,y:100});const contact=editor.schematic.getComponent('SW1');assert.equal(contact.contactType,'NO');assert.equal(contact.controllerId,null);assert.equal('controlType'in contact,false)});
 
+test('les identifiants des fils et jonctions sont masqués par défaut',()=>{const editor=editorStub(),junction=editor.schematic.addComponent({id:'J1',type:'junction'}),wire=editor.schematic.addWire({id:'W1',from:'A:X',to:'B:X',points:[]});assert.equal(junction.showId,false);assert.equal(junction.label,'');assert.equal(wire.showId,false);assert.equal(wire.showLabel,true)});
+
 test('la barre espace reste disponible dans tous les champs texte',()=>{const editor=editorStub();let prevented=false;editor.key({code:'Space',key:' ',target:{tagName:'INPUT'},preventDefault:()=>{prevented=true}},true);assert.equal(prevented,false);assert.equal(editor.space,undefined);editor.key({code:'Space',key:' ',target:{tagName:'TEXTAREA'},preventDefault:()=>{prevented=true}},true);assert.equal(prevented,false)});
 
 test('le premier Échap annule puis le second active la sélection',()=>{const editor=editorStub();let selectionRequests=0;editor.tool='wire';editor.pendingWire={terminal:'A:X',points:[{x:0,y:0}]};editor.onCancel=()=>selectionRequests++;const event={code:'Escape',key:'Escape',target:{tagName:'BODY'},preventDefault:()=>{}};editor.key(event,true);assert.equal(editor.pendingWire,null);assert.equal(selectionRequests,0);editor.key(event,true);assert.equal(selectionRequests,1)});
