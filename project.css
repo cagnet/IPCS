@@ -30,3 +30,4 @@
 .component.coil.powered .symbol-line{stroke:#f08a00;stroke-width:5;filter:drop-shadow(0 0 5px #ffb52b) drop-shadow(0 0 10px #ffd36a)}
 .component.coil.powered .terminal{fill:#ffd36a;stroke:#d87500;stroke-width:3;filter:drop-shadow(0 0 5px #ffad20)}
 .properties-panel .prop-group{gap:2px;margin-bottom:7px}.properties-panel .prop-group input,.properties-panel .prop-group select{padding:4px 6px;min-height:28px}.properties-panel .check-row{margin:5px 0}.properties-panel .rotation-buttons button{height:31px}.properties-panel .secondary-properties{opacity:.82}
+.properties-panel .prop-group:has(>label.check-row){gap:0;margin-bottom:5px}.properties-panel .prop-group>label.check-row{margin:0 0 1px}
