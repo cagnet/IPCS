@@ -1,0 +1,8 @@
+.remote-link-line {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: .78;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
