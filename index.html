@@ -14,8 +14,8 @@
     <div class="toolbar-group">
       <button id="newBtn" title="Nouveau (Ctrl+N)">Nouveau</button>
       <button id="projectSettingsBtn" title="Afficher les propriétés du projet">Propriétés projet</button>
-      <button id="openBtn">Ouvrir</button><input id="fileInput" type="file" accept=".ipcs,.json" hidden>
-      <button id="saveBtn" title="Sauver (Ctrl+S)">Sauver</button>
+      <button id="openBtn">Ouvrir</button><input id="fileInput" type="file" accept=".ipcsx,.ipcs,.json" hidden>
+      <button id="saveBtn" title="Sauver au format IPCSX (Ctrl+S)">Sauver .ipcsx</button>
     </div>
     <div class="mode-switch" role="group"><button id="editMode" class="active">Édition</button><button id="simMode">Simulation</button></div>
     <div class="toolbar-group">
@@ -33,9 +33,7 @@
       <div class="shortcuts"><h3>Raccourcis</h3><ul><li><kbd>R</kbd> Rotation</li><li><kbd>Suppr</kbd> Supprimer</li><li><kbd>Ctrl D</kbd> Dupliquer</li><li>Molette : zoom</li><li><kbd>Clic droit</kbd> + glisser : déplacer le plan</li><li><kbd>Clic droit</kbd> bref : annuler l’action</li><li>Sélection : glisser dans le vide pour encadrer</li><li>Fil sélectionné : glisser une poignée</li><li><kbd>Suppr</kbd> Retirer le sommet du fil</li><li>Fil : chaque clic valide un point</li><li>Fil : cliquer sur une borne pour terminer</li><li><kbd>Maj</kbd> Placement libre du fil</li></ul></div>
     </aside>
     <section class="canvas-wrap" id="canvasWrap">
-      <svg id="schematic" xmlns="http://www.w3.org/2000/svg" tabindex="0" aria-label="Éditeur de schéma électrique">
-        <defs id="svgDefs"></defs><g id="viewport"><image id="pdfBackground" class="pdf-background" hidden preserveAspectRatio="none"></image><g id="gridLayer"></g><g id="wireLayer"></g><g id="componentLayer"></g><g id="overlayLayer"></g></g>
-      </svg>
+      <canvas id="schematic" tabindex="0" aria-label="Éditeur de schéma électrique"></canvas>
       <div id="canvasEmpty" class="canvas-tip">Sélectionnez un composant dans la palette</div>
     </section>
     <aside class="panel properties-panel"><h2>Propriétés</h2><div id="properties"><p class="empty-state">Sélectionnez un élément du schéma.</p></div></aside>
