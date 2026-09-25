@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {Editor} from '../src/editor/Editor.js';
 import {Schematic} from '../src/model/Schematic.js';
 import {SvgRenderer} from '../src/rendering/SvgRenderer.js';
+import {CanvasRenderer} from '../src/rendering/CanvasRenderer.js';
 import {PropertyPanel} from '../src/ui/PropertyPanel.js';
 
 function editorStub(){const editor=Object.create(Editor.prototype);editor.schematic=new Schematic();editor.styleId='RED';editor.wireDescription='';editor.selections=new Set();editor.selectedWirePoint=null;editor.render=()=>{};editor.onStatus=()=>{};editor.snapshot=()=>{};editor.onSelect=()=>{};editor.onChange=()=>{};return editor}
@@ -54,4 +55,6 @@ test('les propriétés affichent toujours l’identifiant puis le titre avec les
 
 test('la barre espace reste disponible dans tous les champs texte',()=>{const editor=editorStub();let prevented=false;editor.key({code:'Space',key:' ',target:{tagName:'INPUT'},preventDefault:()=>{prevented=true}},true);assert.equal(prevented,false);assert.equal(editor.space,undefined);editor.key({code:'Space',key:' ',target:{tagName:'TEXTAREA'},preventDefault:()=>{prevented=true}},true);assert.equal(prevented,false)});
 
-test('le premier Échap annule puis le second active la sélection',()=>{const editor=editorStub();let selectionRequests=0;editor.tool='wire';editor.pendingWire={terminal:'A:X',points:[{x:0,y:0}]};editor.onCancel=()=>selectionRequests++;const event={code:'Escape',key:'Escape',target:{tagName:'BODY'},preventDefault:()=>{}};editor.key(event,true);assert.equal(editor.pendingWire,null);assert.equal(selectionRequests,0);editor.key(event,true);assert.equal(selectionRequests,1)});
+test('le premier Échap annule puis le second active la sélection et désélectionne',()=>{const editor=editorStub();let selectionRequests=0;editor.tool='wire';editor.selection='J1';editor.selections=new Set(['J1']);editor.pendingWire={terminal:'A:X',points:[{x:0,y:0}]};editor.onCancel=()=>selectionRequests++;const event={code:'Escape',key:'Escape',target:{tagName:'BODY'},preventDefault:()=>{}};editor.key(event,true);assert.equal(editor.pendingWire,null);assert.equal(selectionRequests,0);assert.equal(editor.selection,'J1');editor.key(event,true);assert.equal(selectionRequests,1);assert.equal(editor.selection,null);assert.equal(editor.selections.size,0)});
+
+test('le Canvas privilégie une jonction au-dessus de la zone d’un composant voisin',()=>{const schematic=new Schematic({components:[{id:'J1',type:'junction',position:{x:100,y:100}},{id:'R1',type:'coil',position:{x:100,y:100},rotation:0}]}),renderer=Object.create(CanvasRenderer.prototype);renderer.camera={scale:1};renderer.lastSchematic=schematic;renderer.lastView={};const hit=renderer.hitTest({x:100,y:100});assert.equal(hit.id,'J1');assert.equal(hit.terminal,'J1:J');const bounds=renderer.componentBounds(schematic.getComponent('R1'),schematic);assert.deepEqual(bounds,{x:-57,y:-20,width:114,height:40})});
