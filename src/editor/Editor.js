@@ -44,3 +44,5 @@ export class Editor{
 
 const baseEditorTerminalPosition=Editor.prototype.terminalPosition;
 Editor.prototype.terminalPosition=function(reference){const separator=reference.lastIndexOf(':'),component=this.schematic.getComponent(reference.slice(0,separator));if(component?.type!=='counter')return baseEditorTerminalPosition.call(this,reference);const terminal=reference.slice(separator+1),index=Math.max(0,Number(terminal.match(/^P(\d+)/)?.[1]||1)-1),grid=this.schematic.grid.snapGrid,x=index*grid.stepX*component.pinSpacingCells,y=(terminal.endsWith('A')?-1:1)*(component.heightCells/2-1)*grid.stepY,angle=component.rotation*Math.PI/180;return{x:Math.round(component.position.x+x*Math.cos(angle)-y*Math.sin(angle)),y:Math.round(component.position.y+x*Math.sin(angle)+y*Math.cos(angle))}};
+const baseEditorAdd=Editor.prototype.add;
+Editor.prototype.add=function(tool,position){if(tool!=='coil')return baseEditorAdd.call(this,tool,position);let index=1;while(this.schematic.getComponent(`${index} RE`))index++;const id=`${index} RE`,coil=new Coil({id,label:id,position,relayType:'',coilKind:'NORMAL'});this.schematic.addComponent(coil);this.select(id);this.onChange('add')};
