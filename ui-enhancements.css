@@ -83,6 +83,48 @@
   font-size: 12px;
 }
 
+.motor-unit-state-table {
+  display: grid;
+  gap: 2px;
+  margin: 6px 0 10px;
+}
+
+.motor-unit-state-head,
+.motor-unit-state-row {
+  display: grid;
+  grid-template-columns: 1fr 55px 92px;
+  align-items: center;
+  min-height: 25px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.motor-unit-state-head {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.motor-unit-state-row:nth-child(odd) {
+  background: #fff;
+}
+
+.motor-unit-state-row.current {
+  background: #ddecf5;
+  color: #086c99;
+  font-weight: 700;
+  outline: 1px solid #53b9e8;
+}
+
+.motor-unit-state-row.current input:checked {
+  accent-color: #f09a16;
+  filter: drop-shadow(0 0 3px #ffb52c);
+}
+
+.motor-unit-state-row input {
+  justify-self: center;
+}
+
 .palette-icon {
   display: block;
   width: 54px;
