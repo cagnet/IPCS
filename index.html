@@ -7,21 +7,22 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="remote-connector.css">
   <link rel="stylesheet" href="project.css">
+  <link rel="stylesheet" href="ui-enhancements.css">
 </head>
 <body>
   <header class="toolbar">
     <div class="brand"><img src="IPCS.png" alt=""><span><b>IPCS</b><small id="projectTitle">Interactive Pinball Circuit Simulator</small></span></div>
     <div class="toolbar-group">
       <button id="newBtn" title="Nouveau (Ctrl+N)">Nouveau</button>
-      <button id="projectSettingsBtn" title="Afficher les propriétés du projet">Propriétés projet</button>
       <button id="openBtn">Ouvrir</button><input id="fileInput" type="file" accept=".ipcsx,.ipcs,.json" hidden>
       <button id="saveBtn" title="Sauver au format IPCSX (Ctrl+S)">Sauver .ipcsx</button>
     </div>
     <div class="mode-switch" role="group"><button id="editMode" class="active">Édition</button><button id="simMode">Simulation</button></div>
     <div class="toolbar-group">
       <button id="undoBtn" title="Ctrl+Z">↶</button><button id="redoBtn" title="Ctrl+Y">↷</button>
-      <button id="zoomOut">−</button><button id="zoomReset">100%</button><button id="zoomIn">+</button>
+      <button id="zoomOut" title="Dézoomer autour du centre">−</button><button id="zoomReset" title="Revenir à 100 %">100%</button><button id="zoomIn" title="Zoomer autour du centre">+</button><button id="zoomFit" title="Afficher le plan complet">Tout le plan</button>
     </div>
+    <div class="component-search"><input id="componentSearch" type="search" placeholder="Rechercher un composant…" aria-label="Rechercher un composant par son identifiant ou son titre"><button id="componentSearchBtn" title="Rechercher">⌕</button></div>
   </header>
   <main class="workspace">
     <aside class="panel palette-panel">

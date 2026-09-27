@@ -1,0 +1,50 @@
+.component-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 190px;
+}
+
+.component-search input {
+  width: 190px;
+  border: 1px solid #ffffff38;
+  border-radius: 5px;
+  background: #fff;
+  color: var(--ink);
+  padding: 7px 9px;
+}
+
+.component-search button {
+  padding-inline: 10px;
+}
+
+.palette-icon {
+  display: block;
+  width: 54px;
+  height: 32px;
+  overflow: visible;
+}
+
+.palette-icon .selection-box,
+.palette-icon text {
+  display: none;
+}
+
+.palette-icon .symbol-line {
+  stroke-width: 3;
+}
+
+.palette-icon .terminal {
+  stroke-width: 2;
+}
+
+.palette button span.palette-label {
+  font: 11px/1.1 Inter, "Segoe UI", sans-serif;
+}
+
+@media (max-width: 1100px) {
+  .component-search { min-width: 130px; }
+  .component-search input { width: 130px; }
+  .toolbar { gap: 8px; }
+  .toolbar button { padding: 6px 8px; }
+}
