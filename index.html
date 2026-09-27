@@ -22,7 +22,7 @@
       <button id="undoBtn" title="Ctrl+Z">↶</button><button id="redoBtn" title="Ctrl+Y">↷</button>
       <button id="zoomOut" title="Dézoomer autour du centre">−</button><button id="zoomReset" title="Revenir à 100 %">100%</button><button id="zoomIn" title="Zoomer autour du centre">+</button><button id="zoomFit" title="Afficher le plan complet">Tout le plan</button>
     </div>
-    <div class="component-search"><input id="componentSearch" type="search" placeholder="Rechercher un composant…" aria-label="Rechercher un composant par son identifiant ou son titre"><button id="componentSearchBtn" title="Rechercher">⌕</button></div>
+    <div class="component-search"><input id="componentSearch" type="search" placeholder="Rechercher un composant…" aria-label="Rechercher un composant par son identifiant ou son titre" autocomplete="off"><button id="componentSearchBtn" title="Rechercher">⌕</button><div id="componentSearchResults" class="component-search-results" hidden></div></div>
   </header>
   <main class="workspace">
     <aside class="panel palette-panel">
