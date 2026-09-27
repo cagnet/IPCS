@@ -5,6 +5,7 @@ import {Schematic} from '../src/model/Schematic.js';
 import {SvgRenderer} from '../src/rendering/SvgRenderer.js';
 import {CanvasRenderer} from '../src/rendering/CanvasRenderer.js';
 import {PropertyPanel} from '../src/ui/PropertyPanel.js';
+import {applyMotorUnitPreset} from '../src/model/components.js';
 
 function editorStub(){const editor=Object.create(Editor.prototype);editor.schematic=new Schematic();editor.styleId='RED';editor.wireDescription='';editor.selections=new Set();editor.selectedWirePoint=null;editor.render=()=>{};editor.onStatus=()=>{};editor.snapshot=()=>{};editor.onSelect=()=>{};editor.onChange=()=>{};return editor}
 const isOrthogonal=wire=>wire.points.slice(1).every((point,index)=>point.x===wire.points[index].x||point.y===wire.points[index].y);
@@ -75,6 +76,7 @@ test('l’alimentation par défaut place ses deux jonctions sur l’axe vertical
 test('un nouveau Motor Unit utilise Index et le sens antihoraire',()=>{const editor=editorStub();editor.schematic.addComponent({id:'M1',type:'motor'});editor.add('motorUnit',{x:100,y:100});const unit=editor.schematic.getComponent('MU1');assert.equal(unit.motorId,'M1');assert.equal(unit.movements,12);assert.equal(unit.direction,'CCW');assert.equal(unit.preset,'INDEX');assert.deepEqual(unit.stableStates.map((value,index)=>value?index:null).filter(index=>index!==null),[0,6]);assert.equal(unit.transitionStates.some(Boolean),false)});
 
 test('les propriétés du Motor Unit affichent creux et transitions',()=>{const root={innerHTML:'',querySelectorAll:()=>[]},panel=new PropertyPanel(root,()=>{},()=>{},()=>{}),schematic=new Schematic({components:[{id:'M1',type:'motor',mechanicalStep:0},{id:'MU1',type:'motorUnit',motorId:'M1'}]});panel.render(schematic.getComponent('MU1'),schematic);assert.match(root.innerHTML,/Mouvements par tour/);assert.match(root.innerHTML,/Antihoraire/);assert.match(root.innerHTML,/data-motor-unit-state="STABLE"/);assert.match(root.innerHTML,/data-motor-unit-state="TRANSITION"/);assert.match(root.innerHTML,/motor-unit-state-row current/)});
+test('les préréglages du Motor Unit suivent son sens de rotation',()=>{const unit=new Schematic({components:[{id:'MU1',type:'motorUnit',direction:'CCW'}]}).getComponent('MU1');applyMotorUnitPreset(unit,'1');assert.deepEqual(unit.stableStates.map((value,index)=>value?index:null).filter(index=>index!==null),[1,7]);unit.direction='CW';applyMotorUnitPreset(unit,'1');assert.deepEqual(unit.stableStates.map((value,index)=>value?index:null).filter(index=>index!==null),[5,11])});
 
 test('le type du relais possède une option d’affichage indépendante',()=>{const root={innerHTML:'',querySelectorAll:()=>[]},panel=new PropertyPanel(root,()=>{},()=>{},()=>{}),schematic=new Schematic({components:[{id:'R1',type:'coil',relayType:'LOCK'}]}),relay=schematic.getComponent('R1');assert.equal(relay.showRelayType,true);panel.render(relay,schematic);assert.match(root.innerHTML,/data-p="showRelayType"/);assert.match(root.innerHTML,/Afficher le type du relais/)});
 
