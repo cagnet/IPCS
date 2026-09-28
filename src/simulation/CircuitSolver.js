@@ -8,8 +8,8 @@ export class CircuitSolver{
   const sources=[],returns=[];for(const p of s.components.filter(c=>c.type==='powerSource')){for(const o of p.outputs.filter(o=>o.enabled))sources.push(`${p.id}:${o.id}`);returns.push(`${p.id}:RETURN`)}
   const primaryCurrent=conductingNodes(graph,sources,returns),poweredTransformers=s.components.filter(c=>c.type==='transformer'&&primaryCurrent.has(`${c.id}:P1`)&&primaryCurrent.has(`${c.id}:P2`));
   for(const transformer of poweredTransformers){sources.push(`${transformer.id}:S1`,`${transformer.id}:S3`);returns.push(`${transformer.id}:S2`)}
-  const current=conductingNodes(graph,sources,returns),fromSource=current,toReturn=current,poweredCoils=s.components.filter(c=>c.type==='coil'&&current.has(`${c.id}:A`)&&current.has(`${c.id}:B`)).map(c=>c.id);
-  const poweredWires=s.wires.filter(w=>current.has(w.from)&&current.has(w.to)).map(w=>w.id),flowingWires=[...poweredWires];
+  const current=conductingNodes(graph,sources,returns),fromSource=walk(graph,sources),toReturn=walk(graph,returns),poweredCoils=s.components.filter(c=>c.type==='coil'&&current.has(`${c.id}:A`)&&current.has(`${c.id}:B`)).map(c=>c.id);
+  const poweredWires=s.wires.filter(w=>fromSource.has(w.from)||fromSource.has(w.to)||toReturn.has(w.from)||toReturn.has(w.to)).map(w=>w.id),flowingWires=s.wires.filter(w=>current.has(w.from)&&current.has(w.to)).map(w=>w.id);
   const poweredComponents=s.components.filter(c=>{if(c.type==='transformer')return poweredTransformers.includes(c);if(['coil','lamp','motor'].includes(c.type))return current.has(`${c.id}:A`)&&current.has(`${c.id}:B`);return c.terminals.some(t=>current.has(`${c.id}:${t.id}`))}).map(c=>c.id);return {poweredCoils,poweredWires,flowingWires,poweredComponents,fromSource,toReturn};}
 }
 function commitTrips(trips,latched){for(const trip of trips)trip._tripLatched=latched.has(trip.id)}
