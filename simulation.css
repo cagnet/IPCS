@@ -1,0 +1,27 @@
+.simulation-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.simulation-control {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 48px;
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.simulation-control .palette-icon { width: 36px; height: 36px; }
+.simulation-control-text { display: flex; flex-direction: column; min-width: 0; }
+.simulation-control-id { font-weight: 700; color: #0f6f9b; }
+.simulation-control-title { font-size: 11px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; }
+.simulation-control.active { border-color: #e89a16; background: #fff0cf; box-shadow: 0 0 0 1px #e89a16; }
+.simulation-control.blown { border-color: #c7443e; background: #ffe6e3; }
