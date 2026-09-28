@@ -83,7 +83,7 @@ class CircuitSolver{
   const sources=[],returns=[];for(const p of s.components.filter(c=>c.type==='powerSource')){for(const o of p.outputs.filter(o=>o.enabled))sources.push(`${p.id}:${o.id}`);returns.push(`${p.id}:RETURN`)}
   const primaryCurrent=conductingNodes(graph,sources,returns),poweredTransformers=s.components.filter(c=>c.type==='transformer'&&primaryCurrent.has(`${c.id}:P1`)&&primaryCurrent.has(`${c.id}:P2`));
   for(const transformer of poweredTransformers){sources.push(`${transformer.id}:S1`,`${transformer.id}:S3`);returns.push(`${transformer.id}:S2`)}
-  const current=conductingNodes(graph,sources,returns),fromSource=walk(supplyGraph,sources),toReturn=walk(supplyGraph,returns),poweredCoils=s.components.filter(c=>c.type==='coil'&&current.has(`${c.id}:A`)&&current.has(`${c.id}:B`)).map(c=>c.id);
+  const current=conductingNodes(graph,sources,returns),fromSource=walk(graph,sources),toReturn=walk(graph,returns),poweredCoils=s.components.filter(c=>c.type==='coil'&&current.has(`${c.id}:A`)&&current.has(`${c.id}:B`)).map(c=>c.id);
   const poweredWires=s.wires.filter(w=>fromSource.has(w.from)||fromSource.has(w.to)||toReturn.has(w.from)||toReturn.has(w.to)).map(w=>w.id),flowingWires=s.wires.filter(w=>current.has(w.from)&&current.has(w.to)).map(w=>w.id);
   const poweredComponents=s.components.filter(c=>{if(c.type==='transformer')return poweredTransformers.includes(c);if(['coil','lamp','motor'].includes(c.type))return current.has(`${c.id}:A`)&&current.has(`${c.id}:B`);return c.terminals.some(t=>current.has(`${c.id}:${t.id}`))}).map(c=>c.id);return {poweredCoils,poweredWires,flowingWires,poweredComponents,phaseNodes:fromSource,neutralNodes:toReturn,fromSource,toReturn};}
 }
@@ -94,8 +94,6 @@ function walk(g,seeds){const seen=new Set(seeds),q=[...seeds];while(q.length){co
 function conductingNodes(graph,sources,returns){const active=new Set(graph.keys()),protectedNodes=new Set([...sources,...returns]),degree=new Map([...active].map(node=>[node,(graph.get(node)||[]).filter(neighbor=>active.has(neighbor)).length])),queue=[...active].filter(node=>!protectedNodes.has(node)&&degree.get(node)<=1);while(queue.length){const node=queue.pop();if(!active.delete(node))continue;for(const neighbor of graph.get(node)||[]){if(!active.has(neighbor))continue;degree.set(neighbor,degree.get(neighbor)-1);if(!protectedNodes.has(neighbor)&&degree.get(neighbor)<=1)queue.push(neighbor)}}const sourceSet=new Set(sources),returnSet=new Set(returns),keep=new Set(),seen=new Set();for(const start of active){if(seen.has(start))continue;const component=[],pending=[start];let hasSource=false,hasReturn=false;seen.add(start);while(pending.length){const node=pending.pop();component.push(node);hasSource||=sourceSet.has(node);hasReturn||=returnSet.has(node);for(const neighbor of graph.get(node)||[])if(active.has(neighbor)&&!seen.has(neighbor)){seen.add(neighbor);pending.push(neighbor)}}if(hasSource&&hasReturn)for(const node of component)keep.add(node)}return keep}
 function mechanicalModulo(value,divisor){return((value%divisor)+divisor)%divisor}
 function motorUnitActive(schematic,contact){const unit=schematic.getComponent(contact.motorUnitId),motor=unit&&schematic.getComponent(unit.motorId);if(!unit||motor?.type!=='motor')return false;const position=mechanicalModulo((unit.direction==='CW'?-1:1)*motor.mechanicalStep,unit.movements);return motor.mechanicalPhase==='TRANSITION'?!!unit.transitionStates[position]:!!unit.stableStates[position]}
-
-
 
 
 const PROJECT_PICKER_ID='ipcs-projects-v2';
