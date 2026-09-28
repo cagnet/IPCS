@@ -1,5 +1,5 @@
 import {defaultStyles,gridExtent,parseReference,Schematic} from './model/Schematic.js';
-import {createExample} from './model/example.js';
+import {createDefaultExample} from './model/defaultExample.js';
 import {CanvasRenderer} from './rendering/CanvasRenderer.js';
 import {Editor} from './editor/Editor.js';
 import {CircuitSolver,resetSimulationState} from './simulation/CircuitSolver.js';
@@ -9,7 +9,7 @@ import {PropertyPanel} from './ui/PropertyPanel.js';
 import {WireStyle} from './model/Wire.js';
 import {applyMotorUnitPreset,motorUnitPreset} from './model/components.js';
 
-let schematic=createExample(),simulation=null,fileHandle=null,dirty=false,pendingNewBackground=null;
+let schematic=createDefaultExample(),simulation=null,fileHandle=null,dirty=false,pendingNewBackground=null;
 let simulationTimer=null;
 let pdfImageToken=0,pdfCalibration=null;const pdfImageCache=new Map();
 const $=selector=>document.querySelector(selector);
